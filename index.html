@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="app.js"></script>
+
+<body ng-app="myApp" ng-controller="weather" data-ng-init="submitSearch('kitchener')">
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Weather Check</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+            </ul>
+            <form class="navbar-form navbar-left">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search" ng-model="city">
+                </div>
+                <button type="submit" class="btn btn-primary" ng-click="submitSearch(city)">Submit</button>
+            </form>
+        </div>
+    </nav>
+
+
+    <div id="bgimg" style="background-image: url('img/{{ weather }}.gif'); width: 100%; height: 500px; background-size: cover;  margin-top: -20px; color: white;">
+
+        <div class="col-lg-4 col-md-offset-4">
+            <form class="form-horizontal" name="myForm">
+                <div class="form-group" style="text-align: center">
+                    <table class="table table-bordered" style="background-color:#777; opacity: 0.7;">
+                        <br>
+                        <br>
+                        <br>
+                        <tbody>
+                            <tr>
+                                <td colspan="4"><strong><h3>{{ searchHeader }}</h3> </strong></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">   <strong><h4>Weather: {{ weather }}</h4> </strong>
+                                    <strong><h4>Sky : {{ sky }}</h4> </strong>
+                                    <strong><h4>Temprature: {{ tempreture | limitTo: 4 }}</h4> </strong>
+                                </td>
+                                <td colspan="2">
+                                    <strong><h4>Presure : {{ pressure }}</h4> </strong>
+                                    <strong><h4>Humidity : {{ humidity }}</h4> </strong>
+                                    <strong><h4>Latitude : {{ latitude }}</h4> </strong>
+                                    <strong><h4>Longitude : {{ longitude }}</h4> </strong>
+                                </td>
+                                
+                            </tr>
+                            <tr>
+                                <td colspan="2"> 
+                                    <strong><h4>Sunrise : {{sunrise? (sunrise * 1000 | date:'medium'): " " }}</h4> </strong>
+                                    
+                                    <strong><h4>Sunset : {{ sunset? (sunset * 1000 | date:'medium'): " " }}</h4> </strong>
+                                </td>
+                                <td colspan="2">
+                                    <strong><h4>Wind : {{ wind | limitTo: 5 }}</h4> </strong>
+                                    <strong><h4>Winddig : {{ winddig }}</h4> </strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="" style="background-color:azure; text-align: center; opacity: 0.8;">
+        <div class="row">
+            <div class="col-xs-3 col-sm-3" style="height: 100%;" ng-repeat="data in myData | limitTo : 4">
+                <br><p><strong>{{ data.dt* 1000 | date:'medium' }}</strong></p>
+                <p><strong>{{ data.main.temp - 273.15 | limitTo: 4 }}</strong></p>
+                <img src="img/{{ data.weather[0].main }}.jpg" alt="NO Image" height="42" width="42">
+                <p><strong>{{ data.weather[0].main }}</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="text-align: center">
+
+        <table class="table ">
+            <tbody>
+                <tr>
+                    <td><a href="#" ng-click="submitSearch('Pune')">pune</a></td>
+                    <td><a href="#" ng-click="submitSearch('Mumbai')">Mumbai</a></td>
+                    <td><a href="#" ng-click="submitSearch('Solapur')">solapur</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#" ng-click="submitSearch('Toronto')">Toronto</a></td>
+                    <td><a href="#" ng-click="submitSearch('kitchener')">Kitchener</a></td>
+                    <td><a href="#" ng-click="submitSearch('Waterloo')">waterloo</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#" ng-click="submitSearch('London')">London</a></td>
+                    <td><a href="#" ng-click="submitSearch('New york')">Newyork</a></td>
+                    <td><a href="#" ng-click="submitSearch('Paris')">paris</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#" ng-click="submitSearch('Dubai')">dubai</a></td>
+                    <td><a href="#" ng-click="submitSearch('Delhi')">delhi</a></td>
+                    <td><a href="#" ng-click="submitSearch('Hyderabad')">Hyderabad</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+
+</html>
